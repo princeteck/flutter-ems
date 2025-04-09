@@ -204,7 +204,6 @@ This application is designed with extensibility in mind:
 
 ### Main Dependencies
 - flutter_bloc: ^9.1.0
-- equatable: ^2.0.5
 - sqflite: ^2.4.2
 - path: ^1.9.1
 - get_it: ^8.0.3
