@@ -1,0 +1,30 @@
+{
+    "appTitle": "Employment Management System",
+    "@appTitle": {
+        "description": "The title of the application."
+    },
+    "welcomeMessage": "Welcome to your Employment Management System",
+    "@welcomeMessage": {
+        "description": "A welcome message for the home screen."
+    },
+    "login": "Login",
+    "@login": {
+        "description": "Text for the login button."
+    },
+    "logout": "Logout",
+    "@logout": {
+        "description": "Text for the logout button."
+    },
+    "settings": "Settings",
+    "@settings": {
+        "description": "Label for the settings screen."
+    },
+    "home": "Home",
+    "@home": {
+        "description": "Label for the home screen."
+    },
+    "profile": "Profile",
+    "@profile": {
+        "description": "Label for the user profile screen."
+    }
+}
