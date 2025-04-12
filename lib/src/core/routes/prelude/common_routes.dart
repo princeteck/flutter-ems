@@ -8,4 +8,14 @@ final List<RouteBase> commonRoutes = <RouteBase>[
     name: SplashScreen.name,
     builder: (context, state) => const SplashScreen(),
   ),
+  GoRoute(
+    path: DashboardScreen.path,
+    name: DashboardScreen.name,
+    builder: (context, state) => const DashboardScreen(),
+  ),
+  GoRoute(
+    path: SettingsScreen.path,
+    name: SettingsScreen.name,
+    builder: (context, state) => const SettingsScreen(),
+  ),
 ];

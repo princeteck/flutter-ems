@@ -1,30 +1,76 @@
 {
     "appTitle": "Employment Management System",
-    "@appTitle": {
-        "description": "The title of the application."
-    },
     "welcomeMessage": "Welcome to your Employment Management System",
-    "@welcomeMessage": {
-        "description": "A welcome message for the home screen."
-    },
     "login": "Login",
-    "@login": {
-        "description": "Text for the login button."
-    },
     "logout": "Logout",
-    "@logout": {
-        "description": "Text for the logout button."
-    },
     "settings": "Settings",
-    "@settings": {
-        "description": "Label for the settings screen."
-    },
     "home": "Home",
-    "@home": {
-        "description": "Label for the home screen."
-    },
     "profile": "Profile",
-    "@profile": {
-        "description": "Label for the user profile screen."
-    }
+    "employees": "Employees",
+    "addEmployee": "Add Employee",
+    "addProfession": "Add Profession",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "name": "Name",
+    "email": "Email",
+    "fullName": "Full Name",
+    "emailAddress": "Email Address",
+    "joiningDate": "Joining Date",
+    "finalDate": "Final Date",
+    "employeesList": "Employees List",
+    "employeeDetails": "Employee Details",
+    "employee": "Employee",
+    "professions": "Professions",
+    "menu": "Menu",
+    "settingsTitle": "Settings",
+    "accountSettings": "Account Settings",
+    "systemThemeMode": "System Theme Mode",
+    "darkMode": "Dark Mode",
+    "appSettings": "App Settings",
+    "support": "Support",
+    "helpCenter": "Help Center",
+    "contactSupport": "Contact Support",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "language": "Language",
+    "version": "Version",
+    "changePassword": "Change Password",
+    "notifications": "Notifications",
+    "profileInformation": "Profile Information",
+    "updateEmployee": "Update Employee",
+    "hintFullName": "e.g. John Doe",
+    "hintEmailAddress": "john.doe@example.com",
+    "noDate": "No Date",
+    "today": "Today",
+    "nextMonth": "Next Month",
+    "afterOneWeek": "After 1 Week",
+    "previousMonth": "Previous Month",
+    "selectMonthAndYear": "Select Month and Year",
+    "year": "Year",
+    "month": "Month",
+    "selectDate": "Select Date",
+    "nextMonday": "Next Monday",
+    "exampleFullName": "John Doe",
+    "ok": "OK",
+    "noDateSelected": "No Date Selected",
+    "dateSelected": "Date Selected",
+    "pleaseEnterAValidEmail": "Please enter a valid email address",
+    "pleaseEnterAValidFullName": "Please enter a valid full name",
+    "pleaseEnterAValidProfession": "Please enter a valid profession",
+    "finalDateCannotBeBeforeJoinDate": "Final date cannot be before Joining date",
+    "employeeAdded": "Employee added successfully",
+    "employeeUpdated": "Employee updated successfully",
+    "employeeDeleted": "Employee deleted successfully",
+    "employeeNotFound": "Employee not found",
+    "employeeListEmpty": "Employee list is empty",
+    "noProfessions": "No professions available",
+    "professionAdded": "Profession added successfully",
+    "professionUpdated": "Profession updated successfully",
+    "professionDeleted": "Profession deleted successfully",
+    "professionNotFound": "Profession not found",
+    "professionListEmpty": "Profession list is empty",
+    "noEmployees": "No employees available"
 }

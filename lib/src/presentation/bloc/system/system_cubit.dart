@@ -43,11 +43,21 @@ class SystemCubit extends BaseCubitWrapper<SystemState> {
   }
 
   void setTheme(ThemeData theme) {
-    emit(state.copyWith(theme: theme));
+    emit(
+      state.copyWith(
+        theme: theme,
+        isDarkMode: theme.brightness == Brightness.dark,
+      ),
+    );
   }
 
   void setThemeMode(ThemeMode themeMode) {
-    emit(state.copyWith(themeMode: themeMode));
+    emit(
+      state.copyWith(
+        themeMode: themeMode,
+        isDarkMode: themeMode == ThemeMode.dark,
+      ),
+    );
   }
 
   void initialize({required BuildContext context}) async {

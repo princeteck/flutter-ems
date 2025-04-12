@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$BottomNavbarItemModel {
 
- int get index; String get title; String get icon; String get route; bool get isSelected;
+ int? get index; String? get title; String? get icon;@JsonKey(includeFromJson: false, includeToJson: false) Widget? get widget; bool? get isSelected;@JsonKey(includeFromJson: false, includeToJson: false) VoidCallback? get onTap;
 /// Create a copy of BottomNavbarItemModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,16 +29,16 @@ $BottomNavbarItemModelCopyWith<BottomNavbarItemModel> get copyWith => _$BottomNa
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BottomNavbarItemModel&&(identical(other.index, index) || other.index == index)&&(identical(other.title, title) || other.title == title)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.route, route) || other.route == route)&&(identical(other.isSelected, isSelected) || other.isSelected == isSelected));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BottomNavbarItemModel&&(identical(other.index, index) || other.index == index)&&(identical(other.title, title) || other.title == title)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.widget, widget) || other.widget == widget)&&(identical(other.isSelected, isSelected) || other.isSelected == isSelected)&&(identical(other.onTap, onTap) || other.onTap == onTap));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,title,icon,route,isSelected);
+int get hashCode => Object.hash(runtimeType,index,title,icon,widget,isSelected,onTap);
 
 @override
 String toString() {
-  return 'BottomNavbarItemModel(index: $index, title: $title, icon: $icon, route: $route, isSelected: $isSelected)';
+  return 'BottomNavbarItemModel(index: $index, title: $title, icon: $icon, widget: $widget, isSelected: $isSelected, onTap: $onTap)';
 }
 
 
@@ -49,7 +49,7 @@ abstract mixin class $BottomNavbarItemModelCopyWith<$Res>  {
   factory $BottomNavbarItemModelCopyWith(BottomNavbarItemModel value, $Res Function(BottomNavbarItemModel) _then) = _$BottomNavbarItemModelCopyWithImpl;
 @useResult
 $Res call({
- int index, String title, String icon, String route, bool isSelected
+ int? index, String? title, String? icon,@JsonKey(includeFromJson: false, includeToJson: false) Widget? widget, bool? isSelected,@JsonKey(includeFromJson: false, includeToJson: false) VoidCallback? onTap
 });
 
 
@@ -66,14 +66,15 @@ class _$BottomNavbarItemModelCopyWithImpl<$Res>
 
 /// Create a copy of BottomNavbarItemModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? index = null,Object? title = null,Object? icon = null,Object? route = null,Object? isSelected = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? index = freezed,Object? title = freezed,Object? icon = freezed,Object? widget = freezed,Object? isSelected = freezed,Object? onTap = freezed,}) {
   return _then(_self.copyWith(
-index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,icon: null == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as String,route: null == route ? _self.route : route // ignore: cast_nullable_to_non_nullable
-as String,isSelected: null == isSelected ? _self.isSelected : isSelected // ignore: cast_nullable_to_non_nullable
-as bool,
+index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,widget: freezed == widget ? _self.widget : widget // ignore: cast_nullable_to_non_nullable
+as Widget?,isSelected: freezed == isSelected ? _self.isSelected : isSelected // ignore: cast_nullable_to_non_nullable
+as bool?,onTap: freezed == onTap ? _self.onTap : onTap // ignore: cast_nullable_to_non_nullable
+as VoidCallback?,
   ));
 }
 
@@ -84,14 +85,15 @@ as bool,
 @JsonSerializable()
 
 class _BottomNavbarItemModel implements BottomNavbarItemModel {
-   _BottomNavbarItemModel({required this.index, required this.title, required this.icon, required this.route, required this.isSelected});
+   _BottomNavbarItemModel({this.index, this.title, this.icon, @JsonKey(includeFromJson: false, includeToJson: false) this.widget = const SizedBox.shrink(), this.isSelected = false, @JsonKey(includeFromJson: false, includeToJson: false) this.onTap});
   factory _BottomNavbarItemModel.fromJson(Map<String, dynamic> json) => _$BottomNavbarItemModelFromJson(json);
 
-@override final  int index;
-@override final  String title;
-@override final  String icon;
-@override final  String route;
-@override final  bool isSelected;
+@override final  int? index;
+@override final  String? title;
+@override final  String? icon;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  Widget? widget;
+@override@JsonKey() final  bool? isSelected;
+@override@JsonKey(includeFromJson: false, includeToJson: false) final  VoidCallback? onTap;
 
 /// Create a copy of BottomNavbarItemModel
 /// with the given fields replaced by the non-null parameter values.
@@ -106,16 +108,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BottomNavbarItemModel&&(identical(other.index, index) || other.index == index)&&(identical(other.title, title) || other.title == title)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.route, route) || other.route == route)&&(identical(other.isSelected, isSelected) || other.isSelected == isSelected));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _BottomNavbarItemModel&&(identical(other.index, index) || other.index == index)&&(identical(other.title, title) || other.title == title)&&(identical(other.icon, icon) || other.icon == icon)&&(identical(other.widget, widget) || other.widget == widget)&&(identical(other.isSelected, isSelected) || other.isSelected == isSelected)&&(identical(other.onTap, onTap) || other.onTap == onTap));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,index,title,icon,route,isSelected);
+int get hashCode => Object.hash(runtimeType,index,title,icon,widget,isSelected,onTap);
 
 @override
 String toString() {
-  return 'BottomNavbarItemModel(index: $index, title: $title, icon: $icon, route: $route, isSelected: $isSelected)';
+  return 'BottomNavbarItemModel(index: $index, title: $title, icon: $icon, widget: $widget, isSelected: $isSelected, onTap: $onTap)';
 }
 
 
@@ -126,7 +128,7 @@ abstract mixin class _$BottomNavbarItemModelCopyWith<$Res> implements $BottomNav
   factory _$BottomNavbarItemModelCopyWith(_BottomNavbarItemModel value, $Res Function(_BottomNavbarItemModel) _then) = __$BottomNavbarItemModelCopyWithImpl;
 @override @useResult
 $Res call({
- int index, String title, String icon, String route, bool isSelected
+ int? index, String? title, String? icon,@JsonKey(includeFromJson: false, includeToJson: false) Widget? widget, bool? isSelected,@JsonKey(includeFromJson: false, includeToJson: false) VoidCallback? onTap
 });
 
 
@@ -143,14 +145,15 @@ class __$BottomNavbarItemModelCopyWithImpl<$Res>
 
 /// Create a copy of BottomNavbarItemModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? index = null,Object? title = null,Object? icon = null,Object? route = null,Object? isSelected = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? index = freezed,Object? title = freezed,Object? icon = freezed,Object? widget = freezed,Object? isSelected = freezed,Object? onTap = freezed,}) {
   return _then(_BottomNavbarItemModel(
-index: null == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
-as int,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
-as String,icon: null == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
-as String,route: null == route ? _self.route : route // ignore: cast_nullable_to_non_nullable
-as String,isSelected: null == isSelected ? _self.isSelected : isSelected // ignore: cast_nullable_to_non_nullable
-as bool,
+index: freezed == index ? _self.index : index // ignore: cast_nullable_to_non_nullable
+as int?,title: freezed == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+as String?,icon: freezed == icon ? _self.icon : icon // ignore: cast_nullable_to_non_nullable
+as String?,widget: freezed == widget ? _self.widget : widget // ignore: cast_nullable_to_non_nullable
+as Widget?,isSelected: freezed == isSelected ? _self.isSelected : isSelected // ignore: cast_nullable_to_non_nullable
+as bool?,onTap: freezed == onTap ? _self.onTap : onTap // ignore: cast_nullable_to_non_nullable
+as VoidCallback?,
   ));
 }
 

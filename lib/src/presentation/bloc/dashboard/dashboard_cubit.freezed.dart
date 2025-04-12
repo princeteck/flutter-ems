@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$DashboardState {
 
- int? get selectedIndex; List<BottomNavbarItemModel>? get items;
+ int? get selectedIndex; List<BottomNavbarItemModel>? get bottomNavBarItems;
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $DashboardStateCopyWith<DashboardState> get copyWith => _$DashboardStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState&&(identical(other.selectedIndex, selectedIndex) || other.selectedIndex == selectedIndex)&&const DeepCollectionEquality().equals(other.items, items));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DashboardState&&(identical(other.selectedIndex, selectedIndex) || other.selectedIndex == selectedIndex)&&const DeepCollectionEquality().equals(other.bottomNavBarItems, bottomNavBarItems));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,selectedIndex,const DeepCollectionEquality().hash(items));
+int get hashCode => Object.hash(runtimeType,selectedIndex,const DeepCollectionEquality().hash(bottomNavBarItems));
 
 @override
 String toString() {
-  return 'DashboardState(selectedIndex: $selectedIndex, items: $items)';
+  return 'DashboardState(selectedIndex: $selectedIndex, bottomNavBarItems: $bottomNavBarItems)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $DashboardStateCopyWith<$Res>  {
   factory $DashboardStateCopyWith(DashboardState value, $Res Function(DashboardState) _then) = _$DashboardStateCopyWithImpl;
 @useResult
 $Res call({
- int? selectedIndex, List<BottomNavbarItemModel>? items
+ int? selectedIndex, List<BottomNavbarItemModel>? bottomNavBarItems
 });
 
 
@@ -63,10 +63,10 @@ class _$DashboardStateCopyWithImpl<$Res>
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? selectedIndex = freezed,Object? items = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? selectedIndex = freezed,Object? bottomNavBarItems = freezed,}) {
   return _then(_self.copyWith(
 selectedIndex: freezed == selectedIndex ? _self.selectedIndex : selectedIndex // ignore: cast_nullable_to_non_nullable
-as int?,items: freezed == items ? _self.items : items // ignore: cast_nullable_to_non_nullable
+as int?,bottomNavBarItems: freezed == bottomNavBarItems ? _self.bottomNavBarItems : bottomNavBarItems // ignore: cast_nullable_to_non_nullable
 as List<BottomNavbarItemModel>?,
   ));
 }
@@ -78,15 +78,15 @@ as List<BottomNavbarItemModel>?,
 
 
 class _DashboardState implements DashboardState {
-  const _DashboardState({this.selectedIndex = 0, final  List<BottomNavbarItemModel>? items}): _items = items;
+  const _DashboardState({this.selectedIndex = 0, final  List<BottomNavbarItemModel>? bottomNavBarItems}): _bottomNavBarItems = bottomNavBarItems;
   
 
 @override@JsonKey() final  int? selectedIndex;
- final  List<BottomNavbarItemModel>? _items;
-@override List<BottomNavbarItemModel>? get items {
-  final value = _items;
+ final  List<BottomNavbarItemModel>? _bottomNavBarItems;
+@override List<BottomNavbarItemModel>? get bottomNavBarItems {
+  final value = _bottomNavBarItems;
   if (value == null) return null;
-  if (_items is EqualUnmodifiableListView) return _items;
+  if (_bottomNavBarItems is EqualUnmodifiableListView) return _bottomNavBarItems;
   // ignore: implicit_dynamic_type
   return EqualUnmodifiableListView(value);
 }
@@ -102,16 +102,16 @@ _$DashboardStateCopyWith<_DashboardState> get copyWith => __$DashboardStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DashboardState&&(identical(other.selectedIndex, selectedIndex) || other.selectedIndex == selectedIndex)&&const DeepCollectionEquality().equals(other._items, _items));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _DashboardState&&(identical(other.selectedIndex, selectedIndex) || other.selectedIndex == selectedIndex)&&const DeepCollectionEquality().equals(other._bottomNavBarItems, _bottomNavBarItems));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,selectedIndex,const DeepCollectionEquality().hash(_items));
+int get hashCode => Object.hash(runtimeType,selectedIndex,const DeepCollectionEquality().hash(_bottomNavBarItems));
 
 @override
 String toString() {
-  return 'DashboardState(selectedIndex: $selectedIndex, items: $items)';
+  return 'DashboardState(selectedIndex: $selectedIndex, bottomNavBarItems: $bottomNavBarItems)';
 }
 
 
@@ -122,7 +122,7 @@ abstract mixin class _$DashboardStateCopyWith<$Res> implements $DashboardStateCo
   factory _$DashboardStateCopyWith(_DashboardState value, $Res Function(_DashboardState) _then) = __$DashboardStateCopyWithImpl;
 @override @useResult
 $Res call({
- int? selectedIndex, List<BottomNavbarItemModel>? items
+ int? selectedIndex, List<BottomNavbarItemModel>? bottomNavBarItems
 });
 
 
@@ -139,10 +139,10 @@ class __$DashboardStateCopyWithImpl<$Res>
 
 /// Create a copy of DashboardState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? selectedIndex = freezed,Object? items = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? selectedIndex = freezed,Object? bottomNavBarItems = freezed,}) {
   return _then(_DashboardState(
 selectedIndex: freezed == selectedIndex ? _self.selectedIndex : selectedIndex // ignore: cast_nullable_to_non_nullable
-as int?,items: freezed == items ? _self._items : items // ignore: cast_nullable_to_non_nullable
+as int?,bottomNavBarItems: freezed == bottomNavBarItems ? _self._bottomNavBarItems : bottomNavBarItems // ignore: cast_nullable_to_non_nullable
 as List<BottomNavbarItemModel>?,
   ));
 }

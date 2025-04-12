@@ -8,5 +8,6 @@ abstract class SystemState with _$SystemState {
     String? appVersion,
     String? appBuildNumber,
     @Default(ThemeMode.system) ThemeMode? themeMode,
+    @Default(false) bool? isDarkMode,
   }) = _SystemState;
 }

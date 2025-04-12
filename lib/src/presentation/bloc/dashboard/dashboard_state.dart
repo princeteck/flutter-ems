@@ -4,6 +4,6 @@ part of 'dashboard_cubit.dart';
 abstract class DashboardState with _$DashboardState {
   const factory DashboardState({
     @Default(0) int? selectedIndex,
-    List<BottomNavbarItemModel>? items,
+    List<BottomNavbarItemModel>? bottomNavBarItems,
   }) = _DashboardState;
 }

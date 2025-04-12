@@ -9,11 +9,10 @@ part of 'bottom_navbar_item_model.dart';
 _BottomNavbarItemModel _$BottomNavbarItemModelFromJson(
   Map<String, dynamic> json,
 ) => _BottomNavbarItemModel(
-  index: (json['index'] as num).toInt(),
-  title: json['title'] as String,
-  icon: json['icon'] as String,
-  route: json['route'] as String,
-  isSelected: json['isSelected'] as bool,
+  index: (json['index'] as num?)?.toInt(),
+  title: json['title'] as String?,
+  icon: json['icon'] as String?,
+  isSelected: json['isSelected'] as bool? ?? false,
 );
 
 Map<String, dynamic> _$BottomNavbarItemModelToJson(
@@ -22,6 +21,5 @@ Map<String, dynamic> _$BottomNavbarItemModelToJson(
   'index': instance.index,
   'title': instance.title,
   'icon': instance.icon,
-  'route': instance.route,
   'isSelected': instance.isSelected,
 };
