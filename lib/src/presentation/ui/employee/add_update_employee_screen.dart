@@ -42,7 +42,7 @@ class _AddUpdateEmployeeScreenState extends State<AddUpdateEmployeeScreen> {
 
   void _init() {
     if (widget.employee != null) {
-      _cubit.setEmployee(widget.employee);
+      _cubit.setEmployeeData(widget.employee);
     } else {
       _cubit.clearEmployeeForm();
     }
