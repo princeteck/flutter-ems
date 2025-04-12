@@ -1,9 +1,6 @@
-import 'package:ems/src/data/models/error/error_model.dart';
-import 'package:ems/src/presentation/ui/dashboard/dashboard_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 
 import '../../../../core/di/di.dart';
 import '../../../../data/models/employee/employee_model.dart';
@@ -31,41 +28,13 @@ class EmployeeFormFooterSection extends StatelessWidget {
                 SecondBtnWidget(
                   label: localization!.cancel,
                   margin: EdgeInsets.only(right: 12.sp),
-                  onPressed: () {
-                    if (employee == null) {
-                      cubit.clearEmployeeForm();
-                    }
-                    if (context.canPop()) {
-                      context.pop();
-                    } else {
-                      context.pushReplacementNamed(DashboardScreen.name);
-                    }
-                  },
+                  onPressed: () => cubit.handleCancel(context, employee),
                 ),
 
                 PrimaryBtnWidget(
                   label: localization.save,
-                  isDisabled:
-                      state.employee?.isComplete() ??
-                      state.errors?.hasError() ??
-                      true,
-                  onPressed: () {
-                    if (cubit.formKey.currentState?.validate() ?? false) {
-                      if (employee == null) {
-                        cubit.setEmployee(
-                          state.employee?.copyWith(
-                            id:
-                                DateTime.now().millisecondsSinceEpoch
-                                    .toString(),
-                          ),
-                        );
-                      } else {
-                        cubit.setEmployee(
-                          state.employee?.copyWith(id: employee?.id),
-                        );
-                      }
-                    }
-                  },
+                  isDisabled: cubit.isSaveDisabled(),
+                  onPressed: () => cubit.handleSave(employee),
                 ),
               ],
             ),

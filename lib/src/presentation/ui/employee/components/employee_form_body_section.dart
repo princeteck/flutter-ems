@@ -7,7 +7,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:uih/uih.dart';
 
 import '../../../../core/di/di.dart';
-import '../../../../core/helpers/debouncer.dart';
 import '../../../../data/models/employee/employee_model.dart';
 import '../../../bloc/employee/employee_cubit.dart';
 
@@ -19,9 +18,7 @@ class EmployeeFormBodySection extends StatelessWidget {
   Widget build(BuildContext context) {
     final localization = AppLocalizations.of(context)!;
     final cubit = sl<EmployeeCubit>();
-    final Debouncer debouncer = Debouncer(
-      delay: const Duration(milliseconds: 300),
-    );
+
     return BlocBuilder<EmployeeCubit, EmployeeState>(
       bloc: cubit,
       builder: (context, state) {
@@ -51,41 +48,15 @@ class EmployeeFormBodySection extends StatelessWidget {
                         suffixIcon:
                             (state.employee?.fullName?.isNotEmpty ?? false)
                                 ? IconButton(
-                                  icon: Icon(Icons.clear),
-                                  onPressed: () {
-                                    cubit.controllers[0].clear();
-                                    cubit.setEmployee(
-                                      state.employee?.copyWith(fullName: ''),
-                                    );
-                                  },
+                                  icon: Icon(Icons.clear, size: 16.sp),
+                                  onPressed: () => cubit.clearField('fullName'),
                                 )
                                 : null,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            cubit.updateState(
-                              state.copyWith(
-                                errors: state.errors?.copyWith(
-                                  fullName:
-                                      localization.pleaseEnterAValidFullName,
-                                ),
-                              ),
-                            );
-                            return localization.pleaseEnterAValidFullName;
-                          }
-                          cubit.updateState(
-                            state.copyWith(
-                              errors: state.errors?.copyWith(fullName: null),
-                            ),
-                          );
-                          return null;
-                        },
-                        onChanged: (value) {
-                          debouncer.run(() {
-                            cubit.setEmployee(
-                              state.employee?.copyWith(fullName: value),
-                            );
-                          });
-                        },
+                        validator:
+                            (value) =>
+                                cubit.validateFullName(value, localization),
+                        onChanged:
+                            (value) => cubit.updateField('fullName', value),
                       ),
                     ),
 
@@ -104,53 +75,13 @@ class EmployeeFormBodySection extends StatelessWidget {
                         suffixIcon:
                             (state.employee?.email?.isNotEmpty ?? false)
                                 ? IconButton(
-                                  icon: Icon(Icons.clear),
-                                  onPressed: () {
-                                    cubit.controllers[1].clear();
-                                    cubit.setEmployee(
-                                      state.employee?.copyWith(email: ''),
-                                    );
-                                  },
+                                  icon: Icon(Icons.clear, size: 16.sp),
+                                  onPressed: () => cubit.clearField('email'),
                                 )
                                 : null,
-                        validator: (value) {
-                          if (value == null || value.trim().isEmpty) {
-                            cubit.updateState(
-                              state.copyWith(
-                                errors: state.errors?.copyWith(
-                                  email: localization.pleaseEnterAValidEmail,
-                                ),
-                              ),
-                            );
-                            return localization.pleaseEnterAValidEmail;
-                          }
-                          final emailRegExp = RegExp(
-                            r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+',
-                          );
-                          if (!emailRegExp.hasMatch(value)) {
-                            cubit.updateState(
-                              state.copyWith(
-                                errors: state.errors?.copyWith(
-                                  email: localization.pleaseEnterAValidEmail,
-                                ),
-                              ),
-                            );
-                            return localization.pleaseEnterAValidEmail;
-                          }
-                          cubit.updateState(
-                            state.copyWith(
-                              errors: state.errors?.copyWith(email: null),
-                            ),
-                          );
-                          return null;
-                        },
-                        onChanged: (value) {
-                          debouncer.run(() {
-                            cubit.setEmployee(
-                              state.employee?.copyWith(email: value),
-                            );
-                          });
-                        },
+                        validator:
+                            (value) => cubit.validateEmail(value, localization),
+                        onChanged: (value) => cubit.updateField('email', value),
                       ),
                     ),
                     Padding(
@@ -168,23 +99,7 @@ class EmployeeFormBodySection extends StatelessWidget {
                               SizedBox(height: 8),
                               GestureDetector(
                                 onTap: () async {
-                                  var selectedDate =
-                                      await CustomDatePicker.show(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(2000),
-                                        lastDate: DateTime(2050),
-                                        showAfter1WeekButton: true,
-                                        showNoDateButton: true,
-                                      );
-
-                                  debouncer.run(() {
-                                    cubit.setEmployee(
-                                      state.employee?.copyWith(
-                                        joiningDate: selectedDate,
-                                      ),
-                                    );
-                                  });
+                                  await cubit.selectJoiningDate(context);
                                 },
                                 child: Container(
                                   width: 160.sp,
@@ -239,69 +154,10 @@ class EmployeeFormBodySection extends StatelessWidget {
                               SizedBox(height: 8),
                               GestureDetector(
                                 onTap: () async {
-                                  var selectedDate =
-                                      await CustomDatePicker.show(
-                                        context: context,
-                                        initialDate: DateTime.now(),
-                                        firstDate: DateTime(2000),
-                                        lastDate: DateTime(2050),
-                                        showAfter1WeekButton: true,
-                                        showNoDateButton: true,
-                                      );
-
-                                  if (state.employee?.joiningDate == null) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          localization
-                                              .finalDateCannotBeBeforeJoinDate,
-                                        ),
-                                        backgroundColor:
-                                            context.colorScheme.error,
-                                      ),
-                                    );
-                                    debouncer.run(() {
-                                      cubit.setEmployee(
-                                        state.employee?.copyWith(
-                                          finalDate: null,
-                                        ),
-                                      );
-                                    });
-                                    return;
-                                  }
-
-                                  if ((selectedDate != null &&
-                                          state.employee?.joiningDate !=
-                                              null) &&
-                                      selectedDate.isBefore(
-                                        state.employee!.joiningDate!,
-                                      )) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          localization
-                                              .finalDateCannotBeBeforeJoinDate,
-                                        ),
-                                        backgroundColor:
-                                            context.colorScheme.error,
-                                      ),
-                                    );
-                                    return;
-                                  }
-                                  if (selectedDate != null &&
-                                      state.employee?.joiningDate != null &&
-                                      selectedDate.isBefore(
-                                        state.employee!.joiningDate!,
-                                      )) {
-                                    return;
-                                  }
-                                  debouncer.run(() {
-                                    cubit.setEmployee(
-                                      state.employee?.copyWith(
-                                        finalDate: selectedDate,
-                                      ),
-                                    );
-                                  });
+                                  await cubit.selectFinalDate(
+                                    context,
+                                    localization,
+                                  );
                                 },
                                 child: Container(
                                   width: 160.sp,
