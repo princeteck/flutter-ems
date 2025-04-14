@@ -11,6 +11,8 @@ import '../../entities/employee/employee_entity.dart';
 abstract class EmployeeRepository {
   Future<Either<Failure, List<EmployeeModel>>> getAllEmployees();
 
+  Future<Either<Failure, int>> getEmployeeCount();
+
   Future<Either<Failure, EmployeeModel>> getEmployeeById(String id);
 
   Future<Either<Failure, void>> cacheEmployees(List<EmployeeEntity> employees);
@@ -165,6 +167,20 @@ class EmployeeRepositoryImpl implements EmployeeRepository {
       final employeeEntities =
           employees.map((e) => EmployeeEntity.fromJson(e.toJson())).toList();
       return Right(employeeEntities);
+    } on ServerException {
+      return Left(ServerFailure('Server error'));
+    } on CacheException {
+      return Left(CacheFailure('Cache error'));
+    } catch (e) {
+      return Left(UnexpectedFailure('Unexpected error: $e'));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getEmployeeCount() async {
+    try {
+      final count = await dataSource.getEmployeeCount();
+      return Right(count);
     } on ServerException {
       return Left(ServerFailure('Server error'));
     } on CacheException {

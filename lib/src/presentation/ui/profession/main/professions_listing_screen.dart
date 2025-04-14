@@ -150,35 +150,62 @@ class _ProfessionsListingScreenState extends State<ProfessionsListingScreen> {
                               physics: const AlwaysScrollableScrollPhysics(),
                               itemBuilder: (_, index) {
                                 final record = state.professions![index];
-                                return Slidable(
-                                  endActionPane: ActionPane(
-                                    motion: const ScrollMotion(),
-                                    children: [
-                                      SlidableAction(
-                                        flex: 1,
-                                        onPressed:
-                                            (context) => _cubit
-                                                .deleteProfession(record.id!),
-                                        backgroundColor:
-                                            context.colorScheme.error,
-                                        foregroundColor:
-                                            context.colorScheme.onError,
-                                        icon: Icons.delete_forever,
-                                        label: _localization!.delete,
+                                return Padding(
+                                  padding: const EdgeInsets.only(bottom: 8.0),
+                                  child: Slidable(
+                                    endActionPane: ActionPane(
+                                      motion: const ScrollMotion(),
+                                      children: [
+                                        SlidableAction(
+                                          flex: 1,
+                                          onPressed:
+                                              (_) => context.pushNamed(
+                                                AddUpdateProfessionScreen.name,
+                                                extra: record,
+                                              ),
+                                          backgroundColor:
+                                              context.colorScheme.primary,
+                                          foregroundColor:
+                                              context.colorScheme.onPrimary,
+                                          icon: Icons.edit,
+                                          label: _localization!.edit,
+                                        ),
+                                        SlidableAction(
+                                          flex: 1,
+                                          onPressed:
+                                              (context) => _cubit
+                                                  .deleteProfession(record.id!),
+                                          backgroundColor:
+                                              context.colorScheme.error,
+                                          foregroundColor:
+                                              context.colorScheme.onError,
+                                          icon: Icons.delete_forever,
+                                          label: _localization!.delete,
+                                        ),
+                                      ],
+                                    ),
+                                    key: ValueKey(record.id),
+                                    child: ListTile(
+                                      contentPadding: EdgeInsets.symmetric(
+                                        vertical: 8.sp,
+                                        horizontal: 16.sp,
                                       ),
-                                    ],
-                                  ),
-                                  key: ValueKey(record.id),
-                                  child: ListTile(
-                                    title: Text(record.name ?? ''),
-                                    trailing: IconButton(
-                                      icon: Icon(Icons.edit),
-                                      onPressed: () {
-                                        context.pushNamed(
-                                          AddUpdateProfessionScreen.name,
-                                          extra: record,
-                                        );
-                                      },
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          8.sp,
+                                        ),
+                                      ),
+                                      tileColor: context
+                                          .colorScheme
+                                          .onSurfaceVariant
+                                          .withAlpha(16),
+                                      title: Text(
+                                        record.name ?? '',
+                                        style: context.textTheme.bodyLarge
+                                            ?.copyWith(
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
                                     ),
                                   ),
                                 );

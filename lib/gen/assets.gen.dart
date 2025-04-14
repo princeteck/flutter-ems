@@ -15,6 +15,14 @@ class $AssetsIconsGen {
   /// File path: assets/icons/archive-box-x-max.svg
   String get archiveBoxXMax => 'assets/icons/archive-box-x-max.svg';
 
+  /// File path: assets/icons/arrow-left-end-on-rectangle.svg
+  String get arrowLeftEndOnRectangle =>
+      'assets/icons/arrow-left-end-on-rectangle.svg';
+
+  /// File path: assets/icons/arrow-right-start-on-rectangle.svg
+  String get arrowRightStartOnRectangle =>
+      'assets/icons/arrow-right-start-on-rectangle.svg';
+
   /// File path: assets/icons/bars-3.svg
   String get bars3 => 'assets/icons/bars-3.svg';
 
@@ -57,6 +65,8 @@ class $AssetsIconsGen {
   /// List of all assets
   List<String> get values => [
     archiveBoxXMax,
+    arrowLeftEndOnRectangle,
+    arrowRightStartOnRectangle,
     bars3,
     bellAlert,
     bell,
@@ -71,6 +81,17 @@ class $AssetsIconsGen {
     user,
     users,
   ];
+}
+
+class $AssetsImagesGen {
+  const $AssetsImagesGen();
+
+  /// File path: assets/images/user-searching.png
+  AssetGenImage get userSearching =>
+      const AssetGenImage('assets/images/user-searching.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [userSearching];
 }
 
 class $AssetsLogosGen {
@@ -90,6 +111,7 @@ class Assets {
   const Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
+  static const $AssetsImagesGen images = $AssetsImagesGen();
   static const $AssetsLogosGen logos = $AssetsLogosGen();
 }
 

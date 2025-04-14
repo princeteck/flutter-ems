@@ -15,4 +15,8 @@ class AppIcons {
   static const String trash = '${_basePath}trash.svg';
   static const String power = '${_basePath}power.svg';
   static const String archiveBoxXMax = '${_basePath}archive-box-x-max.svg';
+  static const String arrowLeftEndOnRectangle =
+      '${_basePath}arrow-left-end-on-rectangle.svg';
+  static const String arrowRightStartOnRectangle =
+      '${_basePath}arrow-right-start-on-rectangle.svg';
 }

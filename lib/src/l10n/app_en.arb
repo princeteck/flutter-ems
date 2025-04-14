@@ -105,7 +105,9 @@
     "profession": "Profession",
     "noProfessionsFound": "No professions found",
     "selectProfession": "Select Profession",
-    "messageNoProfessions": "Please add a profession before continuing."
+    "messageNoProfessions": "Please add a profession before continuing.",
+    "currentEmployees": "Current Employees",
+    "pastEmployees": "Past Employees"
 
 
 }

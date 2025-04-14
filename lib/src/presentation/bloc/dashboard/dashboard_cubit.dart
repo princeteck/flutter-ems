@@ -1,6 +1,7 @@
 import 'package:ems/src/core/base/base_cubit_wrapper.dart';
 import 'package:ems/src/core/config/app_icons.dart';
 import 'package:ems/src/presentation/bloc/employee/employee_cubit.dart';
+import 'package:ems/src/presentation/ui/dashboard/sections/home_section.dart';
 import 'package:ems/src/presentation/ui/screens.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
@@ -35,6 +36,7 @@ class DashboardCubit extends BaseCubitWrapper<DashboardState> {
         index: 0,
         title: 'Home',
         icon: AppIcons.home,
+        widget: HomeSection(),
         onTap: () {
           setSelectedIndex(0);
         },

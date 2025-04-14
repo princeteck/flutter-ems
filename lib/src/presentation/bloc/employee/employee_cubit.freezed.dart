@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$EmployeeState {
 
-@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus get status; List<EmployeeModel>? get employees; EmployeeModel? get employee; ErrorModel? get errors;
+@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus get status; List<EmployeeModel>? get employees; EmployeeModel? get employee; ErrorModel? get errors; int? get employeesCount;
 /// Create a copy of EmployeeState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $EmployeeStateCopyWith<EmployeeState> get copyWith => _$EmployeeStateCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.employees, employees)&&(identical(other.employee, employee) || other.employee == employee)&&(identical(other.errors, errors) || other.errors == errors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is EmployeeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.employees, employees)&&(identical(other.employee, employee) || other.employee == employee)&&(identical(other.errors, errors) || other.errors == errors)&&(identical(other.employeesCount, employeesCount) || other.employeesCount == employeesCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(employees),employee,errors);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(employees),employee,errors,employeesCount);
 
 @override
 String toString() {
-  return 'EmployeeState(status: $status, employees: $employees, employee: $employee, errors: $errors)';
+  return 'EmployeeState(status: $status, employees: $employees, employee: $employee, errors: $errors, employeesCount: $employeesCount)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $EmployeeStateCopyWith<$Res>  {
   factory $EmployeeStateCopyWith(EmployeeState value, $Res Function(EmployeeState) _then) = _$EmployeeStateCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus status, List<EmployeeModel>? employees, EmployeeModel? employee, ErrorModel? errors
+@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus status, List<EmployeeModel>? employees, EmployeeModel? employee, ErrorModel? errors, int? employeesCount
 });
 
 
@@ -63,13 +63,14 @@ class _$EmployeeStateCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? employees = freezed,Object? employee = freezed,Object? errors = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? employees = freezed,Object? employee = freezed,Object? errors = freezed,Object? employeesCount = freezed,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as BaseCubitStatus,employees: freezed == employees ? _self.employees : employees // ignore: cast_nullable_to_non_nullable
 as List<EmployeeModel>?,employee: freezed == employee ? _self.employee : employee // ignore: cast_nullable_to_non_nullable
 as EmployeeModel?,errors: freezed == errors ? _self.errors : errors // ignore: cast_nullable_to_non_nullable
-as ErrorModel?,
+as ErrorModel?,employeesCount: freezed == employeesCount ? _self.employeesCount : employeesCount // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 /// Create a copy of EmployeeState
@@ -104,7 +105,7 @@ $ErrorModelCopyWith<$Res>? get errors {
 
 
 class _EmployeeState implements EmployeeState {
-  const _EmployeeState({@JsonKey(includeFromJson: false, includeToJson: false) required this.status, final  List<EmployeeModel>? employees, this.employee, this.errors}): _employees = employees;
+  const _EmployeeState({@JsonKey(includeFromJson: false, includeToJson: false) required this.status, final  List<EmployeeModel>? employees, this.employee, this.errors, this.employeesCount = 0}): _employees = employees;
   
 
 @override@JsonKey(includeFromJson: false, includeToJson: false) final  BaseCubitStatus status;
@@ -119,6 +120,7 @@ class _EmployeeState implements EmployeeState {
 
 @override final  EmployeeModel? employee;
 @override final  ErrorModel? errors;
+@override@JsonKey() final  int? employeesCount;
 
 /// Create a copy of EmployeeState
 /// with the given fields replaced by the non-null parameter values.
@@ -130,16 +132,16 @@ _$EmployeeStateCopyWith<_EmployeeState> get copyWith => __$EmployeeStateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._employees, _employees)&&(identical(other.employee, employee) || other.employee == employee)&&(identical(other.errors, errors) || other.errors == errors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _EmployeeState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._employees, _employees)&&(identical(other.employee, employee) || other.employee == employee)&&(identical(other.errors, errors) || other.errors == errors)&&(identical(other.employeesCount, employeesCount) || other.employeesCount == employeesCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_employees),employee,errors);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_employees),employee,errors,employeesCount);
 
 @override
 String toString() {
-  return 'EmployeeState(status: $status, employees: $employees, employee: $employee, errors: $errors)';
+  return 'EmployeeState(status: $status, employees: $employees, employee: $employee, errors: $errors, employeesCount: $employeesCount)';
 }
 
 
@@ -150,7 +152,7 @@ abstract mixin class _$EmployeeStateCopyWith<$Res> implements $EmployeeStateCopy
   factory _$EmployeeStateCopyWith(_EmployeeState value, $Res Function(_EmployeeState) _then) = __$EmployeeStateCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus status, List<EmployeeModel>? employees, EmployeeModel? employee, ErrorModel? errors
+@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus status, List<EmployeeModel>? employees, EmployeeModel? employee, ErrorModel? errors, int? employeesCount
 });
 
 
@@ -167,13 +169,14 @@ class __$EmployeeStateCopyWithImpl<$Res>
 
 /// Create a copy of EmployeeState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? employees = freezed,Object? employee = freezed,Object? errors = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? employees = freezed,Object? employee = freezed,Object? errors = freezed,Object? employeesCount = freezed,}) {
   return _then(_EmployeeState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as BaseCubitStatus,employees: freezed == employees ? _self._employees : employees // ignore: cast_nullable_to_non_nullable
 as List<EmployeeModel>?,employee: freezed == employee ? _self.employee : employee // ignore: cast_nullable_to_non_nullable
 as EmployeeModel?,errors: freezed == errors ? _self.errors : errors // ignore: cast_nullable_to_non_nullable
-as ErrorModel?,
+as ErrorModel?,employeesCount: freezed == employeesCount ? _self.employeesCount : employeesCount // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

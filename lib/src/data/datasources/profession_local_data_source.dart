@@ -6,6 +6,8 @@ import '../models/profession/profession_model.dart';
 abstract class ProfessionLocalDataSource {
   Future<List<ProfessionModel>> getAllProfessions();
 
+  Future<int> getProfessionCount();
+
   Future<ProfessionModel> getProfessionById(String id);
 
   Future<void> cacheProfessions(List<ProfessionModel> professions);
@@ -98,5 +100,13 @@ class ProfessionLocalDataSourceImpl implements ProfessionLocalDataSource {
   @override
   Future<void> deleteAllProfessions() {
     return database.delete('professions');
+  }
+
+  @override
+  Future<int> getProfessionCount() async {
+    final result = await database.rawQuery(
+      'SELECT COUNT(*) as count FROM professions',
+    );
+    return Sqflite.firstIntValue(result) ?? 0;
   }
 }

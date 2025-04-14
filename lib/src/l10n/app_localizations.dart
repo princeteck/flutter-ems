@@ -734,6 +734,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please add a profession before continuing.'**
   String get messageNoProfessions;
+
+  /// No description provided for @currentEmployees.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Employees'**
+  String get currentEmployees;
+
+  /// No description provided for @pastEmployees.
+  ///
+  /// In en, this message translates to:
+  /// **'Past Employees'**
+  String get pastEmployees;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

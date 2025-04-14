@@ -328,4 +328,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get messageNoProfessions => 'Please add a profession before continuing.';
+
+  @override
+  String get currentEmployees => 'Current Employees';
+
+  @override
+  String get pastEmployees => 'Past Employees';
 }

@@ -7,6 +7,8 @@ import 'package:sqflite/sqflite.dart';
 abstract class EmployeeLocalDataSource {
   Future<List<EmployeeEntity>> getAllEmployees();
 
+  Future<int> getEmployeeCount();
+
   Future<EmployeeEntity> getEmployeeById(String id);
 
   Future<void> cacheEmployees(List<EmployeeEntity> employees);
@@ -248,6 +250,17 @@ class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
     } catch (e) {
       debugPrint('Failed to update employee: $e');
       throw Exception('Failed to update employee');
+    }
+  }
+
+  @override
+  Future<int> getEmployeeCount() async {
+    try {
+      final result = await database.rawQuery('SELECT COUNT(*) FROM employees');
+      return Sqflite.firstIntValue(result) ?? 0;
+    } catch (e) {
+      debugPrint('Failed to get employee count: $e');
+      throw Exception('Failed to get employee count');
     }
   }
 

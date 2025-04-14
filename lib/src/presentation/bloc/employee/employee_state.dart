@@ -8,5 +8,6 @@ abstract class EmployeeState with _$EmployeeState {
     List<EmployeeModel>? employees,
     EmployeeModel? employee,
     ErrorModel? errors,
+    @Default(0) int? employeesCount,
   }) = _EmployeeState;
 }

@@ -61,7 +61,7 @@ class ProfessionCubit extends BaseCubitWrapper<ProfessionState> {
     emit(state.copyWith(status: CubitStatus.loading()));
 
     final result = await _repository.getProfessions();
-
+    fetchProfessionCount();
     result.fold(
       (failure) => emit(
         state.copyWith(status: CubitStatus.error(message: failure.message)),
@@ -78,6 +78,27 @@ class ProfessionCubit extends BaseCubitWrapper<ProfessionState> {
             professions: professionModels,
           ),
         );
+      },
+    );
+  }
+
+  Future<int> fetchProfessionCount() async {
+    emit(state.copyWith(status: CubitStatus.loading()));
+
+    final result = await _repository.getProfessionCount();
+
+    return result.fold(
+      (failure) {
+        emit(
+          state.copyWith(status: CubitStatus.error(message: failure.message)),
+        );
+        return 0;
+      },
+      (count) {
+        emit(
+          state.copyWith(status: CubitStatus.success(), professionCount: count),
+        );
+        return count;
       },
     );
   }

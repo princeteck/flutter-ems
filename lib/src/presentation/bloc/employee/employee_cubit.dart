@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:ems/src/domain/repositories/employee/employee_repository.dart';
 import 'package:flutter/material.dart'
     show FormState, GlobalKey, ScaffoldMessenger, SnackBar;
@@ -16,7 +18,6 @@ import 'package:uuid/uuid.dart';
 import '../../../core/base/cubit_status.dart';
 import '../../../data/models/employee/employee_model.dart';
 import '../../../data/models/error/error_model.dart';
-import '../../../data/models/profession/profession_model.dart';
 import '../../../domain/entities/employee/employee_entity.dart';
 import '../../widgets/widgets.dart';
 
@@ -77,6 +78,7 @@ class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
     emit(state.copyWith(status: CubitStatus.loading()));
 
     final result = await _repository.getAllEmployees();
+    fetchEmployeesCount();
 
     result.fold(
       (failure) {
@@ -101,6 +103,29 @@ class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
             employees: employeeModels,
           ),
         );
+      },
+    );
+  }
+
+  /// Fetch employees count
+  Future<int> fetchEmployeesCount() async {
+    emit(state.copyWith(status: CubitStatus.loading()));
+
+    final result = await _repository.getEmployeeCount();
+
+    return result.fold(
+      (failure) {
+        emit(
+          state.copyWith(status: CubitStatus.error(message: failure.message)),
+        );
+        debugPrint('Error fetching employee count: ${failure.message}');
+        return 0;
+      },
+      (count) {
+        emit(
+          state.copyWith(status: CubitStatus.success(), employeesCount: count),
+        );
+        return count;
       },
     );
   }
@@ -223,7 +248,7 @@ class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(localization.employeeDeletedSuccessfully),
-            backgroundColor: context.colorScheme.primary,
+            backgroundColor: context.colorScheme.error,
           ),
         );
       },

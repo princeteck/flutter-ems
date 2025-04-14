@@ -1,4 +1,4 @@
-import 'package:intl/intl.dart' show DateFormat;
+import 'package:intl/intl.dart' show DateFormat, NumberFormat;
 import 'package:package_info_plus/package_info_plus.dart';
 
 class Helper {
@@ -50,5 +50,25 @@ class Helper {
       // Optionally handle invalid format errors
       return "";
     }
+  }
+
+  static String beautifyInt(int? value) {
+    // Return "00" if value is null
+    if (value == null) {
+      return "00";
+    }
+
+    // Add leading zero for single digits (0-9)
+    if (value >= 0 && value <= 9) {
+      return "0$value";
+    }
+
+    // Format with thousands separator for values >= 1000
+    if (value >= 1000) {
+      return NumberFormat("#,###").format(value);
+    }
+
+    // Return as is for other values
+    return value.toString();
   }
 }

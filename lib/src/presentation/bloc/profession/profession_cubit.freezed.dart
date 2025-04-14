@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$ProfessionState {
 
-@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus get status; List<ProfessionModel>? get professions; ProfessionModel? get profession; ErrorModel? get errors;
+@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus get status; List<ProfessionModel>? get professions; ProfessionModel? get profession; ErrorModel? get errors; int? get professionCount;
 /// Create a copy of ProfessionState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $ProfessionStateCopyWith<ProfessionState> get copyWith => _$ProfessionStateCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfessionState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.professions, professions)&&(identical(other.profession, profession) || other.profession == profession)&&(identical(other.errors, errors) || other.errors == errors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is ProfessionState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other.professions, professions)&&(identical(other.profession, profession) || other.profession == profession)&&(identical(other.errors, errors) || other.errors == errors)&&(identical(other.professionCount, professionCount) || other.professionCount == professionCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(professions),profession,errors);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(professions),profession,errors,professionCount);
 
 @override
 String toString() {
-  return 'ProfessionState(status: $status, professions: $professions, profession: $profession, errors: $errors)';
+  return 'ProfessionState(status: $status, professions: $professions, profession: $profession, errors: $errors, professionCount: $professionCount)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $ProfessionStateCopyWith<$Res>  {
   factory $ProfessionStateCopyWith(ProfessionState value, $Res Function(ProfessionState) _then) = _$ProfessionStateCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus status, List<ProfessionModel>? professions, ProfessionModel? profession, ErrorModel? errors
+@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus status, List<ProfessionModel>? professions, ProfessionModel? profession, ErrorModel? errors, int? professionCount
 });
 
 
@@ -63,13 +63,14 @@ class _$ProfessionStateCopyWithImpl<$Res>
 
 /// Create a copy of ProfessionState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? professions = freezed,Object? profession = freezed,Object? errors = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? status = null,Object? professions = freezed,Object? profession = freezed,Object? errors = freezed,Object? professionCount = freezed,}) {
   return _then(_self.copyWith(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as BaseCubitStatus,professions: freezed == professions ? _self.professions : professions // ignore: cast_nullable_to_non_nullable
 as List<ProfessionModel>?,profession: freezed == profession ? _self.profession : profession // ignore: cast_nullable_to_non_nullable
 as ProfessionModel?,errors: freezed == errors ? _self.errors : errors // ignore: cast_nullable_to_non_nullable
-as ErrorModel?,
+as ErrorModel?,professionCount: freezed == professionCount ? _self.professionCount : professionCount // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 /// Create a copy of ProfessionState
@@ -104,7 +105,7 @@ $ErrorModelCopyWith<$Res>? get errors {
 
 
 class _ProfessionState implements ProfessionState {
-  const _ProfessionState({@JsonKey(includeFromJson: false, includeToJson: false) required this.status, final  List<ProfessionModel>? professions, this.profession, this.errors}): _professions = professions;
+  const _ProfessionState({@JsonKey(includeFromJson: false, includeToJson: false) required this.status, final  List<ProfessionModel>? professions, this.profession, this.errors, this.professionCount = 0}): _professions = professions;
   
 
 @override@JsonKey(includeFromJson: false, includeToJson: false) final  BaseCubitStatus status;
@@ -119,6 +120,7 @@ class _ProfessionState implements ProfessionState {
 
 @override final  ProfessionModel? profession;
 @override final  ErrorModel? errors;
+@override@JsonKey() final  int? professionCount;
 
 /// Create a copy of ProfessionState
 /// with the given fields replaced by the non-null parameter values.
@@ -130,16 +132,16 @@ _$ProfessionStateCopyWith<_ProfessionState> get copyWith => __$ProfessionStateCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfessionState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._professions, _professions)&&(identical(other.profession, profession) || other.profession == profession)&&(identical(other.errors, errors) || other.errors == errors));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _ProfessionState&&(identical(other.status, status) || other.status == status)&&const DeepCollectionEquality().equals(other._professions, _professions)&&(identical(other.profession, profession) || other.profession == profession)&&(identical(other.errors, errors) || other.errors == errors)&&(identical(other.professionCount, professionCount) || other.professionCount == professionCount));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_professions),profession,errors);
+int get hashCode => Object.hash(runtimeType,status,const DeepCollectionEquality().hash(_professions),profession,errors,professionCount);
 
 @override
 String toString() {
-  return 'ProfessionState(status: $status, professions: $professions, profession: $profession, errors: $errors)';
+  return 'ProfessionState(status: $status, professions: $professions, profession: $profession, errors: $errors, professionCount: $professionCount)';
 }
 
 
@@ -150,7 +152,7 @@ abstract mixin class _$ProfessionStateCopyWith<$Res> implements $ProfessionState
   factory _$ProfessionStateCopyWith(_ProfessionState value, $Res Function(_ProfessionState) _then) = __$ProfessionStateCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus status, List<ProfessionModel>? professions, ProfessionModel? profession, ErrorModel? errors
+@JsonKey(includeFromJson: false, includeToJson: false) BaseCubitStatus status, List<ProfessionModel>? professions, ProfessionModel? profession, ErrorModel? errors, int? professionCount
 });
 
 
@@ -167,13 +169,14 @@ class __$ProfessionStateCopyWithImpl<$Res>
 
 /// Create a copy of ProfessionState
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? professions = freezed,Object? profession = freezed,Object? errors = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? status = null,Object? professions = freezed,Object? profession = freezed,Object? errors = freezed,Object? professionCount = freezed,}) {
   return _then(_ProfessionState(
 status: null == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as BaseCubitStatus,professions: freezed == professions ? _self._professions : professions // ignore: cast_nullable_to_non_nullable
 as List<ProfessionModel>?,profession: freezed == profession ? _self.profession : profession // ignore: cast_nullable_to_non_nullable
 as ProfessionModel?,errors: freezed == errors ? _self.errors : errors // ignore: cast_nullable_to_non_nullable
-as ErrorModel?,
+as ErrorModel?,professionCount: freezed == professionCount ? _self.professionCount : professionCount // ignore: cast_nullable_to_non_nullable
+as int?,
   ));
 }
 

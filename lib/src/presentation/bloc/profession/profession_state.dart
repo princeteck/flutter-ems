@@ -8,5 +8,6 @@ abstract class ProfessionState with _$ProfessionState {
     List<ProfessionModel>? professions,
     ProfessionModel? profession,
     ErrorModel? errors,
+    @Default(0) int? professionCount,
   }) = _ProfessionState;
 }

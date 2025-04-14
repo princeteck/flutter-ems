@@ -136,4 +136,16 @@ class ProfessionLocalDataSourceImpl implements ProfessionLocalDataSource {
       throw CacheException('Failed to delete all professions: ${e.toString()}');
     }
   }
+
+  @override
+  Future<int> getProfessionCount() async {
+    try {
+      final result = await database.rawQuery(
+        'SELECT COUNT(*) as count FROM $tableName',
+      );
+      return Sqflite.firstIntValue(result) ?? 0;
+    } catch (e) {
+      throw CacheException('Failed to get profession count: ${e.toString()}');
+    }
+  }
 }

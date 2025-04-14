@@ -154,4 +154,16 @@ class EmployeeLocalDataSourceImpl implements EmployeeLocalDataSource {
       throw CacheException('Failed to delete all employees: ${e.toString()}');
     }
   }
+
+  @override
+  Future<int> getEmployeeCount() async {
+    try {
+      final result = await database.rawQuery(
+        'SELECT COUNT(*) as count FROM $tableName',
+      );
+      return Sqflite.firstIntValue(result) ?? 0;
+    } catch (e) {
+      throw CacheException('Failed to get employee count: ${e.toString()}');
+    }
+  }
 }

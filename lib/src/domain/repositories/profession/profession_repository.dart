@@ -8,6 +8,7 @@ import '../../../data/models/profession/profession_model.dart';
 
 abstract class ProfessionRepository {
   Future<Either<Failure, List<ProfessionEntity>>> getProfessions();
+  Future<Either<Failure, int>> getProfessionCount();
   Future<Either<Failure, ProfessionEntity>> getProfessionById(String id);
   Future<Either<Failure, List<ProfessionEntity>>> searchProfessions(
     String query,
@@ -114,6 +115,16 @@ class ProfessionRepositoryImpl implements ProfessionRepository {
     try {
       await dataSource.deleteAllProfessions();
       return const Right(null);
+    } catch (e) {
+      return Left(Failure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getProfessionCount() async {
+    try {
+      final count = await dataSource.getProfessionCount();
+      return Right(count);
     } catch (e) {
       return Left(Failure(message: e.toString()));
     }
