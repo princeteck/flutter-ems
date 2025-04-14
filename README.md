@@ -13,6 +13,8 @@ A comprehensive Flutter application for managing employee records with offline-f
 - Offline database with SQLite
 - Performance optimization with Flutter isolates
 - Clean architecture with BLoC/Cubit state management
+- Internationalization (i18n) support
+- Material 3 design implementation
 
 ## Architecture
 
@@ -87,27 +89,69 @@ graph TB
 ```
 lib/
 ├── core/
-│   ├── constants/
+│   ├── base/
+│   ├── compute/
+│   ├── config/
+│   ├── database/
+│   ├── di/
 │   ├── errors/
-│   ├── network/
-│   ├── util/
-│   ├── widgets/
-│   └── compute/
+│   │   ├── exceptions/
+│   │   ├── failures/
+│   │   └── handler/
+│   ├── helpers/
+│   ├── routes/
+│   ├── services/
+│   ├── storage/
+│   └── utils/
 ├── data/
 │   ├── datasources/
 │   ├── models/
-│   ├── repositories/
-│   └── sync/
+│   │   ├── bottom_navbar/
+│   │   ├── employee/
+│   │   ├── error/
+│   │   ├── profession/
+│   │   └── user/
+│   └── repositories/
 ├── domain/
 │   ├── entities/
-│   ├── repositories/
-│   └── usecases/
+│   │   ├── employee/
+│   │   ├── profession/
+│   │   └── user/
+│   └── repositories/
+│       ├── employee/
+│       ├── profession/
+│       └── user/
+├── gen/
+│   └── assets.gen.dart
+├── l10n/
+│   ├── app_en.arb
+│   ├── app_localizations.dart
+│   └── app_localizations_en.dart
 ├── presentation/
 │   ├── bloc/
-│   ├── pages/
+│   │   ├── dashboard/
+│   │   ├── employee/
+│   │   ├── profession/
+│   │   └── system/
+│   ├── ui/
+│   │   ├── auth/
+│   │   ├── dashboard/
+│   │   │   ├── components/
+│   │   │   └── sections/
+│   │   ├── employee/
+│   │   │   └── components/
+│   │   ├── profession/
+│   │   │   ├── form/
+│   │   │   │   └── components/
+│   │   │   └── main/
+│   │   ├── settings/
+│   │   └── splash/
 │   └── widgets/
-├── di/
-├── config/
+│       ├── appbar/
+│       ├── button/
+│       └── forms/
+│           ├── date_time_fields/
+│           └── input_fields/
 ├── app.dart
 └── main.dart
 ```
@@ -153,6 +197,36 @@ CREATE TABLE professions (
 );
 ```
 
+## State Management
+
+The application uses BLoC pattern with Cubit implementation for state management:
+
+- **System Cubit**: Manages app-wide settings like theme and app information
+- **Dashboard Cubit**: Handles the main dashboard state and navigation
+- **Employee Cubit**: Manages employee data operations
+- **Profession Cubit**: Manages profession data operations
+
+## Dependency Injection
+
+The project uses `get_it` with `injectable` for dependency injection, allowing for:
+- Singleton and lazySingleton registration
+- Factory registration
+- Automatic dependency resolution
+
+## Localization
+
+Internationalization is implemented using the Flutter Intl package:
+- Currently supports English
+- Structured for easy addition of more languages
+- Message catalog in ARB files
+
+## Assets Management
+
+The project uses FlutterGen to generate type-safe asset references:
+- Icons (SVG format)
+- Images 
+- Logos
+
 ## Getting Started
 
 ### Prerequisites
@@ -164,7 +238,7 @@ CREATE TABLE professions (
 
 1. Clone the repository
 ```bash
-git clone https://github.com/yourusername/flutter_employee_manager.git
+git clone https://github.com/princeteck/flutter-ems.git
 ```
 
 2. Navigate to the project directory
@@ -185,9 +259,10 @@ flutter run
 ## Performance Optimizations
 
 The app uses Flutter isolates to offload heavy operations from the UI thread:
-- Database operations
+- Database operations through IsolateManager
 - Data filtering and searching
 - JSON parsing and serialization
+- Error handling with dedicated mechanisms
 
 ## Future Enhancements
 
@@ -207,12 +282,10 @@ This application is designed with extensibility in mind:
 - path: ^1.9.1
 - get_it: ^8.0.3
 - dartz: ^0.10.1
-- intl: ^0.20.2
-- fluttertoast: ^8.2.12
+- intl: ^0.19.0
+- fluttertoast: ^8.2.2
 - shared_preferences: ^2.5.3
-- connectivity_plus: ^5.0.1
-- dio: ^5.3.3
-- flutter_secure_storage: ^9.0.0
+- flutter_secure_storage: ^9.2.4
 - flutter_svg: ^2.0.17
 - cached_network_image: ^3.4.1
 - go_router: ^14.8.1
@@ -226,6 +299,11 @@ This application is designed with extensibility in mind:
 - injectable: ^2.5.0
 - package_info_plus: ^8.3.0
 - uih: ^1.0.5
+- cupertino_icons: ^1.0.8
+- uuid: ^4.5.1
+- flutter_slidable: ^4.0.0
+- flutter_launcher_icons: ^0.14.3
+- flutter_gen_runner: ^5.10.0
 
 ### Dev Dependencies
 - flutter_lints: ^5.0.0
@@ -235,6 +313,7 @@ This application is designed with extensibility in mind:
 - json_serializable: ^6.9.4
 - injectable_generator: ^2.7.0
 - package_rename: ^1.9.0
+- flutter_gen_runner: ^5.10.0
 
 ## License
 
