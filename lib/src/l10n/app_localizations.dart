@@ -153,6 +153,18 @@ abstract class AppLocalizations {
   /// **'Add Profession'**
   String get addProfession;
 
+  /// No description provided for @updateProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Update Profession'**
+  String get updateProfession;
+
+  /// No description provided for @professionsDashboard.
+  ///
+  /// In en, this message translates to:
+  /// **'Professions Dashboard'**
+  String get professionsDashboard;
+
   /// No description provided for @save.
   ///
   /// In en, this message translates to:
@@ -536,6 +548,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No employees available'**
   String get noEmployees;
+
+  /// No description provided for @nameTheProfessionToBeAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the profession to be added'**
+  String get nameTheProfessionToBeAdded;
+
+  /// No description provided for @nameTheProfessionToBeUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the profession to be updated'**
+  String get nameTheProfessionToBeUpdated;
+
+  /// No description provided for @hintProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. Software Engineer, Manager, etc.'**
+  String get hintProfession;
+
+  /// No description provided for @errorProfessionName.
+  ///
+  /// In en, this message translates to:
+  /// **'Profession name cannot be empty'**
+  String get errorProfessionName;
+
+  /// No description provided for @errorProfessionNameLength.
+  ///
+  /// In en, this message translates to:
+  /// **'Profession name must be between 3 and 50 characters'**
+  String get errorProfessionNameLength;
+
+  /// No description provided for @deleteAllProfessionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete All Professions'**
+  String get deleteAllProfessionTitle;
+
+  /// No description provided for @deleteAllProfessionsMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete all professions? This action cannot be undone.'**
+  String get deleteAllProfessionsMessage;
+
+  /// No description provided for @deleteAllEmployeesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete All Employees'**
+  String get deleteAllEmployeesTitle;
+
+  /// No description provided for @deleteAllEmployeesMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure you want to delete all employees? This action cannot be undone.'**
+  String get deleteAllEmployeesMessage;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @errorSavingEmployee.
+  ///
+  /// In en, this message translates to:
+  /// **'Error saving employee data'**
+  String get errorSavingEmployee;
+
+  /// No description provided for @employeeUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee updated successfully'**
+  String get employeeUpdatedSuccessfully;
+
+  /// No description provided for @employeeDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee deleted successfully'**
+  String get employeeDeletedSuccessfully;
+
+  /// No description provided for @errorDeletingEmployee.
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting employee'**
+  String get errorDeletingEmployee;
+
+  /// No description provided for @errorLoadingEmployees.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading employees'**
+  String get errorLoadingEmployees;
+
+  /// No description provided for @errorLoadingProfessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading professions'**
+  String get errorLoadingProfessions;
+
+  /// No description provided for @errorSavingProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Error saving profession data'**
+  String get errorSavingProfession;
+
+  /// No description provided for @professionUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profession updated successfully'**
+  String get professionUpdatedSuccessfully;
+
+  /// No description provided for @professionDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Profession deleted successfully'**
+  String get professionDeletedSuccessfully;
+
+  /// No description provided for @errorDeletingProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting profession'**
+  String get errorDeletingProfession;
+
+  /// No description provided for @errorLoadingProfessionsList.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading professions list'**
+  String get errorLoadingProfessionsList;
+
+  /// No description provided for @errorLoadingEmployeesList.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading employees list'**
+  String get errorLoadingEmployeesList;
+
+  /// No description provided for @errorUpdatingEmployee.
+  ///
+  /// In en, this message translates to:
+  /// **'Error updating employee'**
+  String get errorUpdatingEmployee;
+
+  /// No description provided for @employeeAddedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Employee added successfully'**
+  String get employeeAddedSuccessfully;
+
+  /// No description provided for @errorDeletingEmployees.
+  ///
+  /// In en, this message translates to:
+  /// **'Error deleting employees'**
+  String get errorDeletingEmployees;
+
+  /// No description provided for @allEmployeesDeletedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'All employees deleted successfully'**
+  String get allEmployeesDeletedSuccessfully;
+
+  /// No description provided for @profession.
+  ///
+  /// In en, this message translates to:
+  /// **'Profession'**
+  String get profession;
+
+  /// No description provided for @noProfessionsFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No professions found'**
+  String get noProfessionsFound;
+
+  /// No description provided for @selectProfession.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Profession'**
+  String get selectProfession;
+
+  /// No description provided for @messageNoProfessions.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add a profession before continuing.'**
+  String get messageNoProfessions;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

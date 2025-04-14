@@ -1,3 +1,4 @@
+import 'package:ems/src/domain/repositories/employee/employee_repository.dart';
 import 'package:flutter/material.dart'
     show FormState, GlobalKey, ScaffoldMessenger, SnackBar;
 
@@ -10,16 +11,19 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:go_router/go_router.dart';
 import 'package:injectable/injectable.dart';
 import 'package:uih/uih.dart';
+import 'package:uuid/uuid.dart';
 
 import '../../../core/base/cubit_status.dart';
 import '../../../data/models/employee/employee_model.dart';
 import '../../../data/models/error/error_model.dart';
+import '../../../data/models/profession/profession_model.dart';
+import '../../../domain/entities/employee/employee_entity.dart';
 import '../../widgets/widgets.dart';
 
 part 'employee_state.dart';
 part 'employee_cubit.freezed.dart';
 
-@singleton
+@lazySingleton
 class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
   EmployeeCubit() : super(initState) {
     _init();
@@ -27,10 +31,14 @@ class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
 
   void _init() {
     controllers = List.generate(2, (index) => TextEditingController());
+    _repository = injector<EmployeeRepository>();
+    // Load employees when cubit initializes
+    fetchAllEmployees();
   }
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   late List<TextEditingController> controllers;
+  late EmployeeRepository _repository;
   final Debouncer _debouncer = Debouncer(
     delay: const Duration(milliseconds: 300),
   );
@@ -60,6 +68,166 @@ class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
 
   void setEmployeeData(EmployeeModel? employee) {
     emit(state.copyWith(employee: employee));
+  }
+
+  // MARK: - Repository Integration Methods
+
+  /// Fetch all employees from the repository
+  Future<void> fetchAllEmployees() async {
+    emit(state.copyWith(status: CubitStatus.loading()));
+
+    final result = await _repository.getAllEmployees();
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(status: CubitStatus.error(message: failure.message)),
+        );
+        debugPrint('Error fetching employees: ${failure.message}');
+      },
+      (employees) {
+        final employeeModels =
+            employees.map((entity) {
+              var model = entity.toJson();
+              if (entity.profession != null) {
+                model['profession'] = entity.profession!.toJson();
+              }
+              return EmployeeModel.fromJson(model);
+            }).toList();
+
+        emit(
+          state.copyWith(
+            status: CubitStatus.success(),
+            employees: employeeModels,
+          ),
+        );
+      },
+    );
+  }
+
+  /// Get employee by ID from repository
+  Future<void> fetchEmployeeById(String id) async {
+    emit(state.copyWith(status: CubitStatus.loading()));
+
+    final result = await _repository.getEmployeeById(id);
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(status: CubitStatus.error(message: failure.message)),
+        );
+        debugPrint('Error fetching employee: ${failure.message}');
+      },
+      (employee) {
+        final employeeModel = EmployeeModel.fromJson(employee.toJson());
+        emit(
+          state.copyWith(
+            status: CubitStatus.success(),
+            employee: employeeModel,
+          ),
+        );
+
+        // Update form fields with fetched data
+        controllers[0].text = employeeModel.fullName ?? '';
+        controllers[1].text = employeeModel.email ?? '';
+      },
+    );
+  }
+
+  /// Search employees by query string
+  Future<void> searchEmployees(String query) async {
+    if (query.isEmpty) {
+      return fetchAllEmployees();
+    }
+
+    emit(state.copyWith(status: CubitStatus.loading()));
+
+    final result = await _repository.searchEmployees(query);
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(status: CubitStatus.error(message: failure.message)),
+        );
+        debugPrint('Error searching employees: ${failure.message}');
+      },
+      (employees) {
+        final employeeModels =
+            employees
+                .map((entity) => EmployeeModel.fromJson(entity.toJson()))
+                .toList();
+        emit(
+          state.copyWith(
+            status: CubitStatus.success(),
+            employees: employeeModels,
+          ),
+        );
+      },
+    );
+  }
+
+  /// Get employees by profession ID
+  Future<void> getEmployeesByProfessionId(String professionId) async {
+    emit(state.copyWith(status: CubitStatus.loading()));
+
+    final result = await _repository.getEmployeesByProfessionId(professionId);
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(status: CubitStatus.error(message: failure.message)),
+        );
+        debugPrint(
+          'Error fetching employees by profession: ${failure.message}',
+        );
+      },
+      (employees) {
+        final employeeModels =
+            employees
+                .map((entity) => EmployeeModel.fromJson(entity.toJson()))
+                .toList();
+        emit(
+          state.copyWith(
+            status: CubitStatus.success(),
+            employees: employeeModels,
+          ),
+        );
+      },
+    );
+  }
+
+  /// Delete an employee by ID
+  Future<void> deleteEmployee(
+    String id,
+    BuildContext context,
+    AppLocalizations localization,
+  ) async {
+    emit(state.copyWith(status: CubitStatus.loading()));
+
+    final result = await _repository.deleteEmployee(id);
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(status: CubitStatus.error(message: failure.message)),
+        );
+        _showErrorSnackBar(
+          context: context,
+          message: localization.errorDeletingEmployee,
+        );
+        debugPrint('Error deleting employee: ${failure.message}');
+      },
+      (_) {
+        // Refresh employee list
+        fetchAllEmployees();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(localization.employeeDeletedSuccessfully),
+            backgroundColor: context.colorScheme.primary,
+          ),
+        );
+      },
+    );
   }
 
   // MARK: - Form Management Methods
@@ -148,7 +316,7 @@ class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
   bool isSaveDisabled() {
     // Return true when form has errors or is incomplete
     final hasErrors = state.errors?.hasError() ?? false;
-    final isIncomplete = !(state.employee?.isComplete() ?? false);
+    final isIncomplete = (state.employee?.isComplete() ?? false);
     return hasErrors || isIncomplete;
   }
 
@@ -221,26 +389,87 @@ class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
     }
   }
 
-  void handleSave(EmployeeModel? originalEmployee) {
+  Future<void> handleSave(
+    BuildContext context,
+    EmployeeModel? originalEmployee,
+    AppLocalizations localization,
+  ) async {
     if (formKey.currentState?.validate() ?? false) {
+      emit(state.copyWith(status: CubitStatus.loading()));
+
       try {
         if (originalEmployee == null) {
           // Create new employee
-          final newEmployee = state.employee?.copyWith(
-            id: DateTime.now().millisecondsSinceEpoch.toString(),
-          );
-          setEmployeeData(newEmployee);
-          // Here you would typically call a repository method to save the employee
+          var newEmployee = state.employee?.copyWith(id: Uuid().v4()).toJson();
+          newEmployee?['profession'] = state.employee?.profession?.toJson();
+          if (newEmployee != null) {
+            final employeeEntity = EmployeeEntity.fromJson(newEmployee);
+            final result = await _repository.addEmployee(employeeEntity);
+
+            result.fold(
+              (failure) {
+                emit(
+                  state.copyWith(
+                    status: CubitStatus.error(message: failure.message),
+                  ),
+                );
+                _showErrorSnackBar(
+                  context: context,
+                  message: localization.errorSavingEmployee,
+                );
+              },
+              (_) {
+                emit(state.copyWith(status: CubitStatus.success()));
+                fetchAllEmployees();
+                _showSuccessSnackBar(
+                  context: context,
+                  message: localization.employeeAddedSuccessfully,
+                );
+                clearEmployeeForm();
+                if (context.canPop()) context.pop();
+              },
+            );
+          }
         } else {
           // Update existing employee
-          final updatedEmployee = state.employee?.copyWith(
-            id: originalEmployee.id,
-          );
-          setEmployeeData(updatedEmployee);
-          // Here you would typically call a repository method to update the employee
+          var updatedEmployee =
+              state.employee?.copyWith(id: originalEmployee.id).toJson();
+          updatedEmployee?['profession'] = state.employee?.profession?.toJson();
+
+          if (updatedEmployee != null) {
+            final employeeEntity = EmployeeEntity.fromJson(updatedEmployee);
+            final result = await _repository.updateEmployee(employeeEntity);
+
+            result.fold(
+              (failure) {
+                emit(
+                  state.copyWith(
+                    status: CubitStatus.error(message: failure.message),
+                  ),
+                );
+                _showErrorSnackBar(
+                  context: context,
+                  message: localization.errorUpdatingEmployee,
+                );
+              },
+              (_) {
+                emit(state.copyWith(status: CubitStatus.success()));
+                fetchAllEmployees();
+                _showSuccessSnackBar(
+                  context: context,
+                  message: localization.employeeUpdatedSuccessfully,
+                );
+                if (context.canPop()) context.pop();
+              },
+            );
+          }
         }
       } catch (e) {
-        // Handle any errors that occur during save
+        emit(state.copyWith(status: CubitStatus.error(message: e.toString())));
+        _showErrorSnackBar(
+          context: context,
+          message: localization.errorSavingEmployee,
+        );
         debugPrint('Error saving employee: $e');
       }
     }
@@ -257,6 +486,52 @@ class EmployeeCubit extends BaseCubitWrapper<EmployeeState> {
         content: Text(message),
         backgroundColor: context.colorScheme.error,
       ),
+    );
+  }
+
+  void _showSuccessSnackBar({
+    required BuildContext context,
+    required String message,
+  }) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: context.colorScheme.primary,
+      ),
+    );
+  }
+
+  Future<void> deleteAllEmployees(
+    BuildContext context,
+    AppLocalizations localization,
+  ) async {
+    emit(state.copyWith(status: CubitStatus.loading()));
+
+    final result = await _repository.deleteAllEmployees();
+
+    result.fold(
+      (failure) {
+        emit(
+          state.copyWith(status: CubitStatus.error(message: failure.message)),
+        );
+        _showErrorSnackBar(
+          context: context,
+          message: localization.errorDeletingEmployees,
+        );
+        debugPrint('Error deleting all employees: ${failure.message}');
+      },
+      (_) {
+        emit(
+          state.copyWith(
+            status: CubitStatus.success(),
+            employees: <EmployeeModel>[],
+          ),
+        );
+        _showSuccessSnackBar(
+          context: context,
+          message: localization.allEmployeesDeletedSuccessfully,
+        );
+      },
     );
   }
 }

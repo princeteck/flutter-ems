@@ -6,5 +6,7 @@ abstract class ProfessionState with _$ProfessionState {
     @JsonKey(includeFromJson: false, includeToJson: false)
     required BaseCubitStatus status,
     List<ProfessionModel>? professions,
+    ProfessionModel? profession,
+    ErrorModel? errors,
   }) = _ProfessionState;
 }

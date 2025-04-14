@@ -1,9 +1,11 @@
 import 'package:ems/src/core/base/base_cubit_wrapper.dart';
 import 'package:ems/src/core/config/app_icons.dart';
+import 'package:ems/src/presentation/bloc/employee/employee_cubit.dart';
 import 'package:ems/src/presentation/ui/screens.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../core/di/di.dart';
 import '../../../core/services/navigation_service.dart';
 import '../../../data/models/bottom_navbar/bottom_navbar_item_model.dart';
 import '../../ui/dashboard/sections/employees_listing_section.dart';
@@ -30,6 +32,7 @@ class DashboardCubit extends BaseCubitWrapper<DashboardState> {
   void setUpHomeBottomNavBarItems() {
     final items = [
       BottomNavbarItemModel(
+        index: 0,
         title: 'Home',
         icon: AppIcons.home,
         onTap: () {
@@ -37,14 +40,17 @@ class DashboardCubit extends BaseCubitWrapper<DashboardState> {
         },
       ),
       BottomNavbarItemModel(
+        index: 1,
         title: 'Employees',
         icon: AppIcons.users,
         widget: const EmployeesListingSection(),
         onTap: () {
           setSelectedIndex(1);
+          sl<EmployeeCubit>().fetchAllEmployees();
         },
       ),
       BottomNavbarItemModel(
+        index: 2,
         title: 'Menu',
         icon: AppIcons.bars3,
         onTap: () {

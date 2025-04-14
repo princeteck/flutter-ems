@@ -39,6 +39,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addProfession => 'Add Profession';
 
   @override
+  String get updateProfession => 'Update Profession';
+
+  @override
+  String get professionsDashboard => 'Professions Dashboard';
+
+  @override
   String get save => 'Save';
 
   @override
@@ -229,4 +235,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noEmployees => 'No employees available';
+
+  @override
+  String get nameTheProfessionToBeAdded => 'Name the profession to be added';
+
+  @override
+  String get nameTheProfessionToBeUpdated => 'Name the profession to be updated';
+
+  @override
+  String get hintProfession => 'e.g. Software Engineer, Manager, etc.';
+
+  @override
+  String get errorProfessionName => 'Profession name cannot be empty';
+
+  @override
+  String get errorProfessionNameLength => 'Profession name must be between 3 and 50 characters';
+
+  @override
+  String get deleteAllProfessionTitle => 'Delete All Professions';
+
+  @override
+  String get deleteAllProfessionsMessage => 'Are you sure you want to delete all professions? This action cannot be undone.';
+
+  @override
+  String get deleteAllEmployeesTitle => 'Delete All Employees';
+
+  @override
+  String get deleteAllEmployeesMessage => 'Are you sure you want to delete all employees? This action cannot be undone.';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get errorSavingEmployee => 'Error saving employee data';
+
+  @override
+  String get employeeUpdatedSuccessfully => 'Employee updated successfully';
+
+  @override
+  String get employeeDeletedSuccessfully => 'Employee deleted successfully';
+
+  @override
+  String get errorDeletingEmployee => 'Error deleting employee';
+
+  @override
+  String get errorLoadingEmployees => 'Error loading employees';
+
+  @override
+  String get errorLoadingProfessions => 'Error loading professions';
+
+  @override
+  String get errorSavingProfession => 'Error saving profession data';
+
+  @override
+  String get professionUpdatedSuccessfully => 'Profession updated successfully';
+
+  @override
+  String get professionDeletedSuccessfully => 'Profession deleted successfully';
+
+  @override
+  String get errorDeletingProfession => 'Error deleting profession';
+
+  @override
+  String get errorLoadingProfessionsList => 'Error loading professions list';
+
+  @override
+  String get errorLoadingEmployeesList => 'Error loading employees list';
+
+  @override
+  String get errorUpdatingEmployee => 'Error updating employee';
+
+  @override
+  String get employeeAddedSuccessfully => 'Employee added successfully';
+
+  @override
+  String get errorDeletingEmployees => 'Error deleting employees';
+
+  @override
+  String get allEmployeesDeletedSuccessfully => 'All employees deleted successfully';
+
+  @override
+  String get profession => 'Profession';
+
+  @override
+  String get noProfessionsFound => 'No professions found';
+
+  @override
+  String get selectProfession => 'Select Profession';
+
+  @override
+  String get messageNoProfessions => 'Please add a profession before continuing.';
 }

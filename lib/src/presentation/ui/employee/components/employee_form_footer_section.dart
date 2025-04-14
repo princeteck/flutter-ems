@@ -34,7 +34,8 @@ class EmployeeFormFooterSection extends StatelessWidget {
                 PrimaryBtnWidget(
                   label: localization.save,
                   isDisabled: cubit.isSaveDisabled(),
-                  onPressed: () => cubit.handleSave(employee),
+                  onPressed:
+                      () => cubit.handleSave(context, employee, localization),
                 ),
               ],
             ),

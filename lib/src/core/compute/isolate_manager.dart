@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart' as flutter;
 import 'package:injectable/injectable.dart';
 
 /// A service that manages computation on background isolates
-@module
+@singleton
 class IsolateManager {
   /// Runs a computation in a separate isolate.
   ///

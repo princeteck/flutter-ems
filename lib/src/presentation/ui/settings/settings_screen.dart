@@ -1,10 +1,13 @@
 import 'package:ems/src/core/di/di.dart';
 import 'package:ems/src/presentation/bloc/system/system_cubit.dart';
+import 'package:ems/src/presentation/ui/screens.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../core/config/app_theme.dart';
+import '../../widgets/widgets.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -36,7 +39,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: CustomAppBar(),
       body: SafeArea(
         child: Column(
           children: [
@@ -170,10 +173,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
             },
           ),
           _buildSettingsItem(
-            icon: Icons.language_outlined,
-            title: 'Language',
-            subtitle: 'English',
-            onTap: () {},
+            icon: Icons.business_center_outlined,
+            title: 'Professions Dashboard',
+            subtitle: 'Listing of all professions',
+            onTap: () {
+              context.pushNamed(ProfessionsListingScreen.name);
+            },
           ),
 
           const SizedBox(height: 16),

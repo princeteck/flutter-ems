@@ -1,9 +1,9 @@
 import 'package:ems/src/app.dart';
-import 'package:ems/src/core/di/di.dart';
 import 'package:flutter/material.dart';
+import 'src/core/di/di.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies();
+  await di.setupDependencies();
   runApp(const EmsApp());
 }

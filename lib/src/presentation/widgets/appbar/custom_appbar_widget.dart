@@ -3,9 +3,9 @@ import 'package:flutter/services.dart' show SystemUiOverlayStyle;
 import 'package:go_router/go_router.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final Widget title;
+  final Widget? title;
   final List<Widget>? actions;
-  final Widget? customLeading;
+  final Widget? leading;
 
   // AppBar properties
   final Widget? flexibleSpace;
@@ -35,9 +35,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   const CustomAppBar({
     super.key,
-    required this.title,
+    this.title,
     this.actions,
-    this.customLeading,
+    this.leading,
     this.flexibleSpace,
     this.bottom,
     this.elevation,
@@ -67,10 +67,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: title,
+      title: title ?? const SizedBox.shrink(),
       actions: actions,
       leading:
-          customLeading ??
+          leading ??
           (context.canPop()
               ? IconButton(
                 icon: const Icon(Icons.arrow_back),

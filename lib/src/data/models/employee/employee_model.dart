@@ -22,7 +22,6 @@ abstract class EmployeeModel with _$EmployeeModel {
 }
 
 extension EmployeeModelExtension on EmployeeModel {
-  /// Returns true if all required fields are filled
   bool isComplete() {
     final Map<String, dynamic> json = Map<String, dynamic>.from(toJson());
     json.removeWhere(
@@ -45,5 +44,13 @@ extension EmployeeModelExtension on EmployeeModel {
       }
     }
     return false;
+  }
+
+  bool isCurrentEmployee() {
+    return joiningDate != null && finalDate == null;
+  }
+
+  bool isFormerEmployee() {
+    return joiningDate != null && finalDate != null;
   }
 }

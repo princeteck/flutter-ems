@@ -1,14 +1,17 @@
+import 'package:ems/src/core/base/cubit_status.dart';
 import 'package:ems/src/core/helpers/helpers.dart';
 import 'package:ems/src/l10n/app_localizations.dart';
 import 'package:ems/src/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:uih/uih.dart';
 
 import '../../../../core/di/di.dart';
 import '../../../../data/models/employee/employee_model.dart';
 import '../../../bloc/employee/employee_cubit.dart';
+import '../../../bloc/profession/profession_cubit.dart';
 
 class EmployeeFormBodySection extends StatelessWidget {
   const EmployeeFormBodySection({super.key, this.employee});
@@ -84,6 +87,86 @@ class EmployeeFormBodySection extends StatelessWidget {
                         onChanged: (value) => cubit.updateField('email', value),
                       ),
                     ),
+
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: BlocBuilder<ProfessionCubit, ProfessionState>(
+                        bloc: sl<ProfessionCubit>(),
+                        builder: (context, professionState) {
+                          return Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                localization.profession,
+                                style: context.textTheme.bodyMedium,
+                              ),
+                              SizedBox(height: 8),
+                              GestureDetector(
+                                onTap: () {
+                                  _showProfessionBottomSheet(
+                                    context,
+                                    professionState,
+                                    cubit,
+                                    localization,
+                                  );
+                                },
+                                child: Container(
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      color: context.colorScheme.outline,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8.sp),
+                                  ),
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: 12.sp,
+                                    vertical: 14.sp,
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsets.only(right: 8.sp),
+                                        child: Icon(
+                                          Icons.work_outline,
+                                          color: context.colorScheme.primary,
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          state.employee?.profession?.name ??
+                                              localization.selectProfession,
+                                          style: context.textTheme.bodyMedium
+                                              ?.copyWith(
+                                                fontWeight: FontWeight.w500,
+                                                color:
+                                                    state
+                                                                .employee
+                                                                ?.profession
+                                                                ?.name !=
+                                                            null
+                                                        ? context
+                                                            .colorScheme
+                                                            .onSurface
+                                                        : context
+                                                            .colorScheme
+                                                            .outline,
+                                              ),
+                                        ),
+                                      ),
+                                      Icon(
+                                        Icons.arrow_drop_down,
+                                        color: context.colorScheme.primary,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+
                     Padding(
                       padding: EdgeInsets.only(bottom: 16),
                       child: Row(
@@ -208,6 +291,108 @@ class EmployeeFormBodySection extends StatelessWidget {
               ),
             ),
           ),
+        );
+      },
+    );
+  }
+
+  void _showProfessionBottomSheet(
+    BuildContext context,
+    ProfessionState professionState,
+    EmployeeCubit cubit,
+    AppLocalizations localization,
+  ) {
+    // Ensure professions are loaded
+    if (professionState.status != CubitStatus.success()) {
+      sl<ProfessionCubit>().fetchProfessions();
+    }
+
+    showModalBottomSheet(
+      context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(15.sp)),
+      ),
+      builder: (ctx) {
+        return BlocBuilder<ProfessionCubit, ProfessionState>(
+          bloc: sl<ProfessionCubit>(),
+          builder: (ctx, state) {
+            if (state.status == CubitStatus.loading()) {
+              return Center(child: CircularProgressIndicator());
+            } else if (state.professions?.isEmpty ?? false) {
+              return Center(
+                child: Padding(
+                  padding: EdgeInsets.all(20.sp),
+                  child: Text(localization.noProfessionsFound),
+                ),
+              );
+            }
+
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: 16.sp,
+                    horizontal: 16.sp,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        localization.selectProfession,
+                        style: context.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close_rounded, size: 16.sp),
+                        onPressed: () => context.pop(),
+                      ),
+                    ],
+                  ),
+                ),
+                Divider(height: 1),
+                Flexible(
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.symmetric(vertical: 8.sp),
+                    itemCount: state.professions?.length ?? 0,
+                    separatorBuilder: (_, __) => Divider(height: 1),
+                    itemBuilder: (ctx, index) {
+                      final profession = state.professions![index];
+                      final isSelected =
+                          cubit.state.employee?.profession?.id == profession.id;
+
+                      return ListTile(
+                        title: Text(profession.name ?? ''),
+                        tileColor:
+                            isSelected
+                                ? context.colorScheme.primaryContainer
+                                    .withAlpha(51)
+                                : null,
+                        trailing:
+                            isSelected
+                                ? Icon(
+                                  Icons.check_circle,
+                                  color: context.colorScheme.primary,
+                                )
+                                : null,
+                        onTap: () {
+                          // Update employee's profession
+                          cubit.setEmployeeData(
+                            cubit.state.employee?.copyWith(
+                              profession: profession,
+                            ),
+                          );
+                          context.pop();
+                        },
+                      );
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
         );
       },
     );

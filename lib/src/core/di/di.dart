@@ -10,4 +10,9 @@ final sl = GetIt.instance;
   preferRelativeImports: true,
   asExtension: false,
 )
-Future<void> configureDependencies() async => init(sl);
+void configureDependencies() => init(sl);
+
+// Make sure to call this in your app initialization
+Future<void> setupDependencies() async {
+  configureDependencies();
+}

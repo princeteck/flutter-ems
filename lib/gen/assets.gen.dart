@@ -9,6 +9,70 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/archive-box-x-max.svg
+  String get archiveBoxXMax => 'assets/icons/archive-box-x-max.svg';
+
+  /// File path: assets/icons/bars-3.svg
+  String get bars3 => 'assets/icons/bars-3.svg';
+
+  /// File path: assets/icons/bell-alert.svg
+  String get bellAlert => 'assets/icons/bell-alert.svg';
+
+  /// File path: assets/icons/bell.svg
+  String get bell => 'assets/icons/bell.svg';
+
+  /// File path: assets/icons/cog.svg
+  String get cog => 'assets/icons/cog.svg';
+
+  /// File path: assets/icons/device-phone-mobile.svg
+  String get devicePhoneMobile => 'assets/icons/device-phone-mobile.svg';
+
+  /// File path: assets/icons/heart.svg
+  String get heart => 'assets/icons/heart.svg';
+
+  /// File path: assets/icons/home.svg
+  String get home => 'assets/icons/home.svg';
+
+  /// File path: assets/icons/power.svg
+  String get power => 'assets/icons/power.svg';
+
+  /// File path: assets/icons/trash.svg
+  String get trash => 'assets/icons/trash.svg';
+
+  /// File path: assets/icons/user-minus.svg
+  String get userMinus => 'assets/icons/user-minus.svg';
+
+  /// File path: assets/icons/user-plus.svg
+  String get userPlus => 'assets/icons/user-plus.svg';
+
+  /// File path: assets/icons/user.svg
+  String get user => 'assets/icons/user.svg';
+
+  /// File path: assets/icons/users.svg
+  String get users => 'assets/icons/users.svg';
+
+  /// List of all assets
+  List<String> get values => [
+    archiveBoxXMax,
+    bars3,
+    bellAlert,
+    bell,
+    cog,
+    devicePhoneMobile,
+    heart,
+    home,
+    power,
+    trash,
+    userMinus,
+    userPlus,
+    user,
+    users,
+  ];
+}
+
 class $AssetsLogosGen {
   const $AssetsLogosGen();
 
@@ -25,6 +89,7 @@ class $AssetsLogosGen {
 class Assets {
   const Assets._();
 
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsLogosGen logos = $AssetsLogosGen();
 }
 

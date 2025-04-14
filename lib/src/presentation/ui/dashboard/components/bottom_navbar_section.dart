@@ -46,10 +46,10 @@ class BottomNavbarSection extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       decoration: BoxDecoration(
-                        color:
-                            selectedIndex == item.index
-                                ? const Color(0xFF3A3A4D)
-                                : Colors.transparent,
+                        // color:
+                        //     selectedIndex == item.index
+                        //         ? const Color(0xFF3A3A4D)
+                        //         : Colors.transparent,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(
@@ -57,17 +57,29 @@ class BottomNavbarSection extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           if (item.icon != null)
-                            SvgPicture.asset(item.icon ?? ''),
+                            SvgPicture.asset(
+                              item.icon ?? '',
+                              colorFilter: ColorFilter.mode(
+                                selectedIndex == item.index
+                                    ? context.colorScheme.primary
+                                    : context.colorScheme.onSurfaceVariant,
+                                BlendMode.srcIn,
+                              ),
+                            ),
                           const SizedBox(height: 8),
                           if (item.title != null)
                             Text(
                               item.title ?? '',
-                              style: TextStyle(
-                                color:
-                                    selectedIndex == item.index
-                                        ? Colors.white
-                                        : const Color(0xFFB0B0C3),
-                              ),
+                              style: context.theme.textTheme.bodyMedium
+                                  ?.copyWith(
+                                    fontWeight: FontWeight.w500,
+                                    color:
+                                        selectedIndex == item.index
+                                            ? context.colorScheme.primary
+                                            : context
+                                                .colorScheme
+                                                .onSurfaceVariant,
+                                  ),
                             ),
                         ],
                       ),

@@ -209,7 +209,7 @@ This application is designed with extensibility in mind:
 - get_it: ^8.0.3
 - dartz: ^0.10.1
 - intl: ^0.20.2
-- fluttertoast: ^8.2.2
+- fluttertoast: ^8.2.12
 - shared_preferences: ^2.5.3
 - connectivity_plus: ^5.0.1
 - dio: ^5.3.3
