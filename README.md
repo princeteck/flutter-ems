@@ -117,40 +117,39 @@ lib/
 ### User Table
 ```sql
 CREATE TABLE users (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  username TEXT NOT NULL UNIQUE,
-  password TEXT NOT NULL,
-  avatar TEXT,
-  created_at TEXT NOT NULL
+  id TEXT PRIMARY KEY,
+  username TEXT NULLABLE,
+  avatar TEXT NULLABLE,
+  email TEXT NULLABLE,
+  password TEXT NULLABLE,
+  created_at TEXT NULLABLE,
+  updated_at TEXT NULLABLE
 );
 ```
 
 ### Employee Table
 ```sql
 CREATE TABLE employees (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL,
-  profession_id INTEGER NOT NULL,
-  email TEXT,
-  phone TEXT,
-  hire_date TEXT NOT NULL,
-  end_date TEXT,
-  is_current INTEGER NOT NULL,
-  notes TEXT,
-  created_at TEXT NOT NULL,
-  updated_at TEXT NOT NULL,
-  FOREIGN KEY (profession_id) REFERENCES professions (id)
+  id TEXT PRIMARY KEY,
+  full_name TEXT NULLABLE,
+  avatar TEXT NULLABLE,
+  email TEXT NULLABLE,
+  phone TEXT NULLABLE,
+  profession JSON NULLABLE,
+  joining_date TEXT NULLABLE,
+  final_date TEXT NULLABLE,
+  created_at TEXT NULLABLE,
+  updated_at TEXT NULLABLE
 );
 ```
 
 ### Profession Table
 ```sql
 CREATE TABLE professions (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT NOT NULL UNIQUE,
-  description TEXT,
-  created_at TEXT NOT NULL,
-  updated_at TEXT NOT NULL
+  id TEXT PRIMARY KEY,
+  name TEXT NULLABLE,
+  created_at TEXT NULLABLE,
+  updated_at TEXT NULLABLE
 );
 ```
 
